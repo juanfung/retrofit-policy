@@ -1,0 +1,250 @@
+---
+title: "Economic Effects of Seismic Retrofit Policies for Soft-Story Buildings"
+output: html_document
+---
+
+#### 1. Introduction
+“Soft-story” buildings are buildings with weak stories, typically on the ground floor due to tuck-under parking or large commercial spaces. During strong earthquake shaking, the ground level walls cannot support the stiff and heavy mass of the stories above them as they move back and forth. The ground level walls could shift sideways until the building collapses, crushing the ground floor. Many apartments built between 1920 and 1970 fall into the category of soft-story buildings.
+
+Soft-story buildings were recognized as the most hazardous structure category in California after two notable earthquakes. The 1989 Loma Prieta Earthquake claimed 63 lives and rendered 7,700 housing units in soft-story buildings uninhabitable. The 1994 Northridge Earthquake killed 16 people and destroyed more than 34,000 housing units in soft-story buildings. Following these earthquakes, California adopted building codes that prevent the presence of weak and soft stories in new construction, left older buildings unaltered.
+
+As concerns for seismic safety of older buildings increased, the International Code Council published the first International Existing Building Code (IEBC) in 2003, which provided guidelines for "Earthquake Hazard Reduction in Existing Wood-Frame Residential Building with Soft, Weak, or Open-Front Walls". However, the Code was inadequate to support a comprehensive evaluation for the complex behavior of soft-story buildings and thus unable to yield optimal retrofit designs (ATC 2010). Therefore, the Federal Emergency Management Agency (FEMA) issued improved guidelines in 2012, entitled "FEMA P-807: Seismic Evaluation and Retrofit of Multi-Unit Wood-Frame Buildings with Week First Stories". This document detailed procedures on seismic analysis and retrofit for vulnerable wood-frame buildings and limited the structural retrofit work to the first story and the second-floor diaphragm as this is enough to prevent building collapse ([ATC 2012](https://www.fema.gov/media-library-data/20130726-1916-25045-2624/femap_807.pdf)).
+
+A survey for the City of San Francisco revealed that about 58,000 people live in soft-story buildings, and about 2,000 businesses are housed in soft-story buildings that employ about 7,000 people (ATC 2010). Following the issuance of FEMA P-807, the City of San Francisco implemented a mandatory seismic retrofit policy for soft-story buildings by adopting Ordinance No. 66-13 in 2013. The ordinance used FEMA P-807 as guidelines and addressed wood-frame buildings that have the following characteristics: (1) permitted for construction prior to January 1, 1978; (2) three or more stories (or two stories over a basement or over an underfloor area with any portion above grade) and five or more dwelling units; (3) ground floor containing parking or similar open floor or basement space causing soft, weak, or open wall lines where there exists at least one floor level above (City of San Francisco 2013). The City assigned buildings in the retrofit program to four compliance tiers, as detailed in Table 1. Single-family homes mostly fall into Tiers II and III.  195 single-family homes (i.e., condos) have been retrofitted and met ordinance requirements by September 15, 2020, which constitutes 92% of single-family homes in the program ([DataSF 2020a](https://data.sfgov.org/Housing-and-Buildings/Soft-Story-Properties/beah-shgi)).
+
+#
+**Table 1. The timeframe for compliance (City of San Francisco 2013).**
+
+|Priority| Description| Submission of screening form and optional evaluation form (year)| Submission of permit application with plans for seismic retrofit work (year)| Completion of work and issuance of CFC2 (year)|
+|--------|-----------|-------|--------|---------|
+|Tier I| Buildings that contain a Group A (assembly), Group E (educational), Group R-2.1, R-3.1, or R-4 (residential) occupancy on any story| September 15, 2014| September 15, 2015| September 15, 2017|
+|Tier II| Buildings with 15 or more dwelling units, except for buildings assigned to Tier I or IV| September 15, 2014| September 15, 2016| September 15, 2018|
+|Tier III| Buildings that do not fall within the definition of another tier| September 15, 2014| September 15, 2017| September 15, 2019|
+|Tier IV| Buildings that contain a Group B (business) or Group M (mercantile) occupancy on the first story or in a basement area with any portion extending above grade, and buildings that are in mapped liquefaction zones, except those assigned to Tier I| September 15, 2014| September 15, 2018| September 15, 2020|
+
+
+The objectives of this study are to (1) assess the impact of the mandatory retrofit policy on the property values of soft-story buildings, (2) measure the change in housing values as a function of distance to soft-story buildings and, (3) quantify willingness-to-pay of home owners for seismic retrofit.  
+
+#
+#### 2. Methods and experiments
+##### 2.1 Difference-in-difference method
+The difference-in-difference method is widely used in quasi-experimental studies that compare the outcomes of individuals exposed to different policies or environmental factors at different time periods. The method assumes that confounders varying across individuals are time invariant, and time-variant confounders affect individuals equally. In statistics, a confounder is a variable that influence both dependent and independent variables, causing a mathematical relationship in which dependent and independent variables are associated but not casually related due to either coincidence or the presence of certain unseen factors.
+
+Given a population of individuals ($I = [i_1,i_2,...i_n]$) and a time series ($T = [t_1,t_2,...t_m]$), the individual $i_n$ under a treated condition at time $t_m$ can be expressed as $E_{nm}=1$, and the individual $i_n$ under a control condition (no treatment) at time $t_m$ can be expressed as $E_{nm}=0$. $E$ is a $n×m$ matrix representing the true effect of the treatment.
+
+Consider the case of two individuals ($n = 2$) and two time points ($m = 2$). Individual $i_1$ is under the control condition (no treatment) at both time points. A treatment is implemented in individual $i_2$ at time $t_2$.
+
+Let $y_2$ represent the outcome of individual $i_2$ at time $t_2$, and let $y_1$ represent the outcome if the same individual is not treated at time $t_2$. The difference between the two outcomes is the treatment effect ($\beta_3$) as follows:
+
+$$y_2 = y_1 + \beta_3 \qquad (1)$$
+
+The untreated outcome ($y_1$) can be simulated using a two-way fixed effects regression model as follows:
+
+$$y_1=\beta_0 + \beta_1 D_t + \beta_2 D_i + \epsilon_{it} \qquad (2)$$
+
+where $\beta_0$ is a sum of time fixed and individual fixed effects. $D_t$ is the difference for any individuals between time periods $t_2$ and $t_1$. $D_i$ is the time-invariant difference between individuals $i_2$ and $i_1$. $\beta_1$ and $\beta_2$ are parameters to be estimated, describing the contribution of individual discrepancy and time variation to the outcome, respectively. $\epsilon_{it}$ is a random error term (white noise).
+
+The true effect of the treatment can be expressed as $E = \begin{pmatrix} 0&0\\0&1 \end{pmatrix}$. The observed outcomes ($Y$) of the population can be written as follows:
+
+$$Y = \begin{pmatrix} y_1\\y_1 \end{pmatrix} + E\times \begin{pmatrix} y_2-y_1\\y_2-y_1 \end{pmatrix} + \begin{pmatrix} \epsilon_{it}\\\epsilon_{it} \end{pmatrix} \qquad (3)$$
+
+Substituting Equations 1 and 2 into Equation 3 yields:
+
+$$Y = \begin{pmatrix} \beta_1 D_t + \beta_2 D_i + \epsilon_{it}\\\beta_1 D_t + \beta_2 D_i + \epsilon_{it} \end{pmatrix} + E\times \begin{pmatrix} \beta_3\\\beta_3 \end{pmatrix} + \begin{pmatrix} \epsilon_{it}\\\epsilon_{it} \end{pmatrix} \qquad (4)$$
+
+Let $D_t$ equal 0 at time $t_1$ and 1 at time $t_2$. Let $D_i$ equal 0 for individual $i_1$ and 1 for individual $i_2$. This leads to $D_i D_t=E_{nm}$. Replacing $E_{nm}$ with $D_i D_t$ in Equation 4 yields the observed outcome for individual $i_2$ as follows:
+
+$$y_2=\beta_0 + \beta_1 D_t + \beta_2 D_i + \beta_3 D_i D_t + \epsilon_{it} \qquad (5)$$
+
+The purpose of the difference-in-difference method is to find a good estimate of $\beta_3$.
+
+#
+##### 2.2 Hedonic regression method
+The Hedonic regression method deconstructs the price of an asset into the asset’s component parts and uses regression analysis to examine how each component contributes to the overall value. The purpose of the Hedonic regression method is to obtain the estimate of the willingness to pay for or the marginal cost of producing different characteristics. The sale price $(p_{it})$ of a property $i$ in the year $t$ is estimated as follows:
+
+$$p_{it} = \theta_{0} + \displaystyle\sum_{k=1}^{K} \theta_k x_k + \epsilon \qquad (6)$$
+
+where $x_k$ is a building characteristic, a neighborhood factor, or a market factor that affects property values. $\theta_0$ is an intercept term to be estimated. $\theta_k$  is a characteristic parameter to be estimated. $K$ is the number of characteristics to be investigated. $\epsilon$ is a random error term (white noise).
+
+Adding the difference-in-difference component into the base model yields the equation that describes the sale price of a property exposed to a treatment as follows:
+
+$$p_{it} = (\beta_0 + \theta_{0}) + \displaystyle\sum_{k=1}^{K} \theta_k x_k + \beta_1 D_t + \beta_2 D_i + \beta_3 D_i D_t + (\epsilon + \epsilon_{it}) \qquad (7)$$
+
+Merging constant terms ($\beta_0 + \theta_0 = \alpha$) and error terms ($\epsilon + \epsilon_{it} = e$), Equation 7 is simplified as follows:
+
+$$p_{it} = \alpha + \displaystyle\sum_{k=1}^{K} \theta_k x_k + \beta_1 D_t + \beta_2 D_i + \beta_3 D_i D_t + e \qquad (8)$$
+
+#
+##### 2.3 Experimental design
+The treatment analyzed in this study is the implementation of a mandatory seismic retrofit policy for soft-story buildings. The control period is 2006–2012, and the treatment period is 2013–2019. The retrofit policy can influence housing values in four ways. First, the sale prices of soft-story buildings that are retrofitted in compliance with the mandatory ordinance may increase because of enhanced seismic safety. Second, the prices of hazardous soft-story buildings may decline due to increased public awareness of seismic safety. Third, the values of buildings nearby retrofitted soft-story buildings may rise because of the decreased risks of collapse and damage. Fourth, the values of buildings nearby hazardous soft-story buildings may drop as a result of increased risk awareness. However, at the time of this study, very limited sales data is available for retrofitted homes, because most homes completed retrofit work in the recent two years (Tiers II and III). Moreover, whether a home was sold after retrofitting is unknown, because the date when building owners received a confirmation for work completion is not available. Therefore, this study ignores the first and third impacts mentioned above and focuses on the second and fourth impacts during the treament period 2013-2019. The analysis in the later section demonstrates that this assumption is reasonable.
+
+
+##### Experiment 1. Impact of retrofit ordinance on soft-story single-family homes
+Since soft-story buildings are a subset of wood-frame structures, the control group is selected as follows. 
+
+###### _Control group_
+* C1: Pre-1980 wood-frame single-family homes that are not designated to retrofit
+* C2: Post-1980 wood-frame single-family homes
+
+###### _Treatment group_
+* T1: Soft-story single-family homes that are designated to retrofit
+
+
+
+
+##### Experiment 2. Distancing effect on property values
+Two methods are employed to determine the threshold of distance from soft-story buildings (including soft-story single-family homes, apartments, and commercial buildings) that can affect values of single-family homes. The distance is divided into 20 sections, and each section has the same number of homes. 
+
+The first method feeds sales data and building attributes data to the Hedonic model (Equation 6) to generate the coefficient of distance. The threshold of distance can be determined by the nearest section with a coefficient of distance approaching 0. The accuracy of this method relies on the accuracy of the Hedonic model and the availability of reliable input data. 
+
+The second method uses the Person correlation coefficient to measure the correlation between distance from soft-story buildings and logrithm of sale price. The threshold of distance can be identified by the nearest section with a correlation value approaching 0. The accuracy of this method is affected by sales data and whether or not a linear relationship exists between distance and logrithm of sale price.
+
+To obtain a high-resolution result, one can further divide the targeted section to 20 pieces and use the above methods to determine the threshold of distance.
+
+
+
+##### Experiment 3. Impact of retrofit ordinance on properties nearby soft-story buildings
+Single-family homes can be divided to three groups based on their distances from soft-story buildings. The far-away group comprises one thrid of homes sold during 2006-2019, which are at least 317 m away from any soft-story buildings. The immediately nearby group includes one third of homes that are within a radius of 119 m.The rest of homes fall into the not immediately nearby group.
+
+###### _Control group_
+* C3: Single-family homes far away from soft-story buildings,including soft-story single-family homes, apartments, and commercial buildings
+
+###### _Treatment group_
+* T2: Single-family homes immediately nearby soft-story buildings
+* T3: Single-family homes not immediately nearby soft-story buildings
+
+
+#
+##### 2.4 Data
+The retrofit list for soft-story buildings in the City of San Francisco is accessible from the government database ([DataSF 2020a](https://data.sfgov.org/Housing-and-Buildings/Soft-Story-Properties/beah-shgi)). The list contains 212 single-family homes (i.e., condos, dwellings), 4162 apartments, and 431 commercial buildings (e.g., hotels, offices, stores). 92% of single-family homes have been seismically upgraded per the requirement of the ordinance by September 15, 2020 (the deadline). Sales data for single-family homes from 2006 to 2019 is obtained from the [ATTOM Property API](https://api.developer.attomdata.com/docs). Buildings that were remodeled,  reconstructed, or damaged due to fire or natural disasters during 2006–2019 are not considered in this study, because those events can greatly affect property values. Annual assessed land and improvement values during 2007-2018 are derived from the San Francisco’s Government Database ([DataSF 2020b](https://data.sfgov.org/Housing-and-Buildings/Assessor-Historical-Secured-Property-Tax-Rolls/wv5m-vpq2)).Improvements refer to buildings and permanent structures on the land. Assessed property values are simply calculated as land values plus improvement values in this study.
+
+Three property attributes are selected to develop the Hedonic regression function. Building age is a major factor that affects a property value. New buildings are typically in good conditions and do not require major renovations or repairs, and thus more buyers would be willing to pay for them compared to old buildings. However, if the property is regarded as a historic landmark, the age of the property can enhance its value. A property’s value is also determined by its size and usable space. Home size is described by property area, lot area, and basement area. This study uses the number of rooms and property area to characterize the useable space of a property. The values for above attributes are obtained from the San Francisco’s Government Database ([DataSF 2020b](https://data.sfgov.org/Housing-and-Buildings/Assessor-Historical-Secured-Property-Tax-Rolls/wv5m-vpq2)).
+
+The neighborhood factors considered in this study include the distance to the central business district, the nearest park, the nearest school district, the nearest police office, and to the nearest fire station, and median household income. The business center of San Francisco is the Financial District, which employs more than 220,000 office workers. The distance to the business center and those facilities is calculated using the Harversin formula. The location of each property and each facility is derived from the San Francisco’s Government Database ([DataSF 2020c](https://data.sfgov.org/City-Infrastructure/City-Facilities/nc68-ngbr)). Median household incomes at the Census tract level are obtained from the 2014-2018 American Community Survey ([Kreider 2020](http://www.energyjustice.net/justice/include_map.php)).
+
+
+
+```{r, fig.width=10, fig.height=8, echo=FALSE}
+a <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp2/Attributes.csv')
+
+par(
+  mfrow=c(3,3),  # Number of rows, number of columns
+  mar=c(4,4,1,0)  # margin size (bottom, left, top, right)
+)
+
+plot(x=a$age, y=log(a$Sale_price_adj), xlab='Age', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$Bed, y=log(a$Sale_price_adj), xlab='Number of bedrooms', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$Bath, y=log(a$Sale_price_adj), xlab='Number of bathrooms', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$SoftStory, y=log(a$Sale_price_adj), xlab='Distance to the nearest soft-story building (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+
+break_point=quantile(a$SoftStory, c(.33, .67)) 
+abline(h = 0, v = break_point[1], lty="dashed")
+text(break_point[1],7, "33rd percentile", adj=c(-.1, NA))
+abline(h = 0, v = break_point[2], lty="dashed") 
+text(break_point[2],17, "67th percentile", adj=c(-.1, NA))
+
+plot(x=a$CBD, y=log(a$Sale_price_adj), xlab='Distance to the central business district (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$Park, y=log(a$Sale_price_adj), xlab='Distance to the nearest park (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$School, y=log(a$Sale_price_adj), xlab='Distance to the nearest school district (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$Police, y=log(a$Sale_price_adj), xlab='Distance to the nearest police station (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+plot(x=a$Fire, y=log(a$Sale_price_adj), xlab='Distance to the nearest fire station (km)', ylab='Log sale price ($)', main="", col="#69b3a2")
+```
+**Figure. Building attributes in Experiment 2.**
+
+ 
+```{r, fig.width=10, fig.height=5, echo=FALSE}
+a <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp2/Attributes.csv')
+
+par(
+  mfrow=c(3,3),  # Number of rows, number of columns
+  mar=c(4,4,1,0)  # Margin size (bottom, left, top, right)
+)
+
+hist(a$age, breaks=30 , col="#69b3a2", border=F, xlab="Age" , ylab="Number of buildings" , cex = 1.5, main="" )
+hist(a$Bed, breaks=30 , col="#69b3a2", border=F, xlab="Number of bedrooms" , ylab="" , cex = 1.5, main="")
+hist(a$Bath, breaks=30 , col="#69b3a2", border=F, xlab="Number of bathrooms" , ylab="" , cex = 1.5, main="" )
+hist(a$SoftStory, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the nearest soft-story building (km)" , ylab="Number of buildings" , cex = 1.5, main="" )
+hist(a$CBD, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the central business district (km)" , ylab="" , cex = 1.5, main="")
+hist(a$Park, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the nearest park (km)" , ylab="" , cex = 1.5, main="" )
+hist(a$School, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the nearest school district (km)" , ylab="Number of buildings" , cex = 1.5, main="")
+hist(a$Police, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the nearest police office (km)" , ylab="" , cex = 1.5, main="" )
+hist(a$Fire, breaks=30 , col="#69b3a2", border=F, xlab="Distance to the nearest fire station (km)" , ylab="" , cex = 1.5, main="")
+```
+**Figure. Distributions of building attributes in Experiment 2.**
+
+
+
+#
+#### 3. Model development and validation
+##### 3.1 The Hedonic model
+Multicollinearity is the phenomenon that one or more attributes are highly correlated with each other and thus have a similar relationship with the dependent variable. The existence of multicollinearity can lead the estimated equation to misinterpreting which features are important, and thus regression coefficients in the equation cannot provide an accurate estimate of the market value of various features. The value of Pearson’s correlation greater than 0.7 typically indicates a highly linear correlation between two attributes. 
+
+
+
+In order to select the functional form that best fits the data, the natural log transformations on the dependent and independent variables are tested. The following equation can best reproduce the sale price of a property.
+
+$$Ln(p_{it}) = \alpha + \displaystyle\sum_{k=1}^{9} \theta_k x_k + \theta_{10} Ln(x_{10}) + \beta_1 D_t + \beta_2 D_i + \beta_3 D_i D_t + e \qquad (9)$$
+
+#
+##### 3.2 The difference-in-difference model
+The difference-in-difference method is built on four assumptions. First, the allocation of treatment is not determined by outcomes. Second, the treatment and control groups have parallel trends in outcomes. This requires that the difference between treatment and control groups is constant over time in the absence of treatment. Violation of this assumption can lead to biased estimation of the casual effect between the treatment and outcome. Third, the composition of treatment and control groups is stable for repeated cross-section design. Last, there is no spillover effect; that is, the outcome of the individual is independent of the treatment for another individual.
+
+The first assumption holds true because the retrofit list was created based on structural evaluation results rather than property values (Experiment 1) or neighborhood home values (Experiment 2).The second assumption is the most critical one to ensure the internal validity of the difference-in-difference method. Figure X shows assessed property values for treatment and two control groups in Experiment 1 during 2007–2018. The trends of the three groups are generally in parallel before and after the policy implemented in 2013. Since buildings considered hazardous or completing retrofit work do not trigger tax reassessment, there is not a sudden shift in assessed values after 2013. However, market values of those buildings may change due to increased safety concern of buyers. Similarly, assessor data is used to examine two treatment and control groups in Experiment 2. are parallel with the control group before and after policy implementation. 
+
+
+```{r, fig.width=5, fig.height=8, echo=FALSE}
+retrofitted <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp1/Soft%20story/SoftStory_assessment_retrofitted.csv')
+noncompliant <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp1/Soft%20story/SoftStory_assessment_noncompliant.csv')
+pre1980wood <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp1/Wood%20frame/Wood_assessment_pre1980.csv')
+post1980wood <- read.csv('https://raw.githubusercontent.com/juanfung/retrofit-policy/master/data/processed/SF_Exp1/Wood%20frame/Wood_assessment_post1980.csv')
+
+soft <- rbind(retrofitted, noncompliant)
+soft <- soft[,(ncol(soft)-10):ncol(soft)]  # Select last 11 columns
+soft <- na.omit(soft)  # Drop rows containing NA (Rows containing 0 have NA as well.)
+soft_value = colMeans(soft)
+
+pre <- pre1980wood[,(ncol(pre1980wood)-10):ncol(pre1980wood)]
+pre <- na.omit(pre)
+pre_value = colMeans(pre)
+
+post <- post1980wood[,(ncol(post1980wood)-10):ncol(post1980wood)]
+post <- na.omit(post)
+post_value = colMeans(post)
+
+par(
+  mfrow=c(3,1),  # Number of rows, number of columns
+  mar=c(4,4,1,0)  # Margin size (bottom, left, top, right)
+)
+
+plot(x=seq(2008,2018), y=soft_value, ylim=c(700000,900000), xlab='Year', ylab='Assessed property value ($)', main="Soft-story single-family homes",col="#7080e2")
+plot(x=seq(2008,2018), y=pre_value, ylim=c(700000,900000), xlab='Year', ylab='Assessed property value ($)', main="Pre-1980 wood-frame single-family homes", col="#7080e2")
+plot(x=seq(2008,2018), y=post_value, ylim=c(700000,900000), xlab='Year', ylab='Assessed property value ($)', main="Post-1980 wood-frame single-family homes", col="#7080e2")
+```
+
+**Figure X. Assessed property values (2019 USD) for treatment and control groups in Experiment 1.**
+
+The treatment group has XXX properties sold during 2006-2012, and XXX properties sold during 2013-2019.The control group has XXX properties sold during 2006-2012, and XXX properties sold during 2013-2019. The composition of population in treatment and control groups before and after intervention does not change significantly, and thus the third assumption is valid. The property values of soft-story single-family homes hardly change when their immediate neighbors are retrofitted, and thus the last assumption is valid.
+
+
+#### 4. Results
+##### 4.1 Impact of retrofit ordinance on soft-story single-family homes
+
+##### 4.2 Impact of retrofit ordinance on properties nearby soft-story buildings
+
+##### 4.3 Willingness-to-pay
+
+##### 4.4 Sensitivity analysis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
