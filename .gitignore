@@ -5,6 +5,8 @@
 *.shx
 *.key
 *.here
+*.tex
+*.docx
 .scratch*
 literature/
 data/
