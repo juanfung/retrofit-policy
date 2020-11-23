@@ -1,4 +1,5 @@
-# LA County (includes Santa Monica)
+# City of Los Angeles 
+
 
 Non-ductile concrete, Soft-story apartment, and soft-story concrete lists
 
@@ -7,6 +8,8 @@ Non-ductile concrete, Soft-story apartment, and soft-story concrete lists
 Soft-story permits (LADBS; updated weekly)
 
 - Source: [https://data.lacity.org/A-Prosperous-City/LADBS-Soft-Story-Permits/nc44-6znn](https://data.lacity.org/A-Prosperous-City/LADBS-Soft-Story-Permits/nc44-6znn)
+
+# LA County (includes Santa Monica)
 
 Assessor parcel data
 
