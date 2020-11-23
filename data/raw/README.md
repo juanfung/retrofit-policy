@@ -4,6 +4,10 @@ Non-ductile concrete, Soft-story apartment, and soft-story concrete lists
 
 - Source: LADBS (via email)
 
+Soft-story permits (LADBS; updated weekly)
+
+- Source: [https://data.lacity.org/A-Prosperous-City/LADBS-Soft-Story-Permits/nc44-6znn](https://data.lacity.org/A-Prosperous-City/LADBS-Soft-Story-Permits/nc44-6znn)
+
 Assessor parcel data
 
 - Source: [https://data.lacounty.gov/resource/mdji-9cym.json](https://data.lacounty.gov/resource/mdji-9cym.json)
