@@ -24,7 +24,7 @@ Tall building inventory (updated "as needed")
 
 # Santa Monica 
 
-Seismic retrofit map layers (list of buildings with status; updated ??)
+Seismic retrofit map layers (list of buildings with status; last updated 2019-09-18)
 
 - Source: [https://gis-smgov.opendata.arcgis.com/datasets?t=seismic%20retrofit](https://gis-smgov.opendata.arcgis.com/datasets?t=seismic%20retrofit)
 
